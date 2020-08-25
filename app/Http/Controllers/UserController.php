@@ -11,11 +11,21 @@ class UserController extends Controller
     public function index()
     {
         $userdata = User::all()->toArray();
+        
         return view('auth.userlist',compact('userdata'));
     }
 
-    public function create()
+    public function edit(User $user)
     {
-        return view('users.profile', array('user' => Auth::user()));  
+        return view('users.edit',compact('user'));
+    }
+
+    public function update(Request $request, $id)
+    {
+        $user = User::find($id);
+        $user->fill($request->all());
+        $user->save();
+
+        return redirect()->back();
     }
 }

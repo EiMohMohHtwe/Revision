@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html>
-<form class="" action="{{route('edit',['user' => $user->id]) }}" method="POST">
+<form class="" action="{{route('profile.update',['user' => $user->id]) }}" method="POST">
 @csrf
 @method('PATCH')
 <caption>Edit Profile</caption>

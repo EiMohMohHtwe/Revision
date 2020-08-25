@@ -4,7 +4,7 @@
     <div class="row">
         <div class="col-md-12">
             <h3>User List</h3>
-            <form action="/register/userlist/profile" method="post">
+            <form action="/userlist" method="post">
                 @csrf
                 <table class="table table-bordered" border="1" width="50%">
                     <tr>
@@ -23,7 +23,7 @@
                             <td>{{$row['sex']}}</td>
                             <td>{{$row['age']}}</td>
                             <td>{{$row['birthday']}}</td>
-                            <td> <button type="view" class="btn btn-primary">View</button></td>
+                            <td> <button type="View" class="btn btn-primary">View</button></td>
                             <td> <button type="delete" class="btn btn-primary">Delete</button></td>
                         </tr>
                     @endforeach

@@ -74,6 +74,7 @@ class RegisterController extends Controller
             'name' => $data['name'],
             'avatar' => $data['avatar']->store('public/images'),
             'sex' => $data['sex'],
+            'admin' => false,
             'birthday' => $data['birthday'],
             'age' => $data['age'],
             'address' => $data['address'],
@@ -83,5 +84,4 @@ class RegisterController extends Controller
         ]);
        
     }
-
 }
