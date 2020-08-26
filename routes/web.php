@@ -21,13 +21,9 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
-Route::get('/register/userlist', [
-    'uses' => 'UserController@index',
-    'as' => 'userlist',
-    'middleware' => 'auth'
-]);
+Route::get('/userlist', 'UserController@index')->name('userlist');
 
-Route::get('/create' , 'ArticleController@create')->name('articles.create');
+Route::get('/articles/create' , 'ArticleController@create')->name('articles.create');
 
 Route::get('/index', [
     'uses' => 'ArticleController@index',
@@ -41,7 +37,11 @@ Route::post('/store', [
     'middleware' => 'auth'
 ]);
 
-Route::get('articles/{article}', 'ArticleController@show')->name('articles.show');
+Route::get('articles/{article}', [
+    'uses' => 'ArticleController@show',
+    'as' => 'articles.show',
+    'middleware' => 'auth'
+]);
 
 Route::get('/comment', [
     'uses' => 'CommentController@index',
@@ -53,5 +53,6 @@ Route::post('articles/{article}/comments', 'CommentController@store')->name('com
 
 Route::get('/profile/edit/{user}', 'UserController@edit')->name('users.edit');
 Route::patch('/profile/{user}','UserController@update')->name('profile.update');
-
-Route::get('/userlist/{user}/profile' , 'ProfileController@index')->name('users.profile');
+Route::get('/profile/{user}', 'ProfileController@show')->name('users.show');
+Route::get('profile/{id}/showAvatar', 'ProfileController@showAvatar')->name('avatar.show');
+Route::delete('/profile/{user}', 'ProfileController@destroy')->name('profile.destroy');

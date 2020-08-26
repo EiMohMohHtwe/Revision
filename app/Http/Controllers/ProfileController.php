@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 use App\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Redis;
 
 class ProfileController extends Controller
 {
@@ -14,9 +15,7 @@ class ProfileController extends Controller
      */
     public function index()
     {
-        $user = User::all()->toArray();
-        
-        return view('users.profile',compact('user'));
+        //
     }
 
     /**
@@ -50,8 +49,21 @@ class ProfileController extends Controller
     {
         $user = User::find($id);
 
-        $filepath = storage_path('app/'.$user->avatar);
+        return view('users.profile', compact('user'));
+    }
+
+    public function showAvatar($id)
+    {
+        $user = User::find($id);
+
+        $filepath = storage_path('app/'. $user->avatar);
 
         return response()->file($filepath);
+    }
+
+    public function destroy($id) 
+    {
+        $user = User::find($id);
+        $user->delete();
     }
 }

@@ -12,7 +12,7 @@ class UserController extends Controller
     {
         $userdata = User::all()->toArray();
         
-        return view('auth.userlist',compact('userdata'));
+        return view('admins.userlist',compact('userdata'));
     }
 
     public function edit(User $user)
