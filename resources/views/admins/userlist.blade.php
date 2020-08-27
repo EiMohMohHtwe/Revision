@@ -25,7 +25,7 @@
                             <td>{{$row['birthday']}}</td>
 
                             <td>
-                            <form class="form-horizontal" method="post" action="{{action('ProfileController@destroy',$row['id'])}}">
+                            <form class="form-horizontal" method="post" action="{{action('UserController@destroy',$row['id'])}}">
                             @csrf
                             @method('delete')
                                 <div class="form-group">
@@ -37,7 +37,7 @@
                             </td>
                             
                             <td>
-                            <form class="form-horizontal" method="post" action="{{action('ProfileController@show',$row['id'])}}">
+                            <form class="form-horizontal" method="post" action="{{action('UserController@show',$row['id'])}}">
                             @csrf
                                 <div class="form-group">
                                     <div class="col-md-4">
@@ -46,7 +46,7 @@
                                 </div>
                             </form>
                             </td>
-                            
+                              
                         </tr>
                     @endforeach
                 </table>

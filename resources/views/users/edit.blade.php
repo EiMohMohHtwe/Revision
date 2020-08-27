@@ -1,47 +1,84 @@
-<!DOCTYPE html>
-<html>
-<form class="" action="{{route('profile.update',['user' => $user->id]) }}" method="POST">
-@csrf
-@method('PATCH')
-<caption>Edit Profile</caption>
-    <table>
-        <tr>
-            <th>Name</th>
-            <td><input type="text" name="name" id="name" value="{{$user->name}}"/></td>
-        </tr>
-        <tr>
-            <th>Avatar</th>
-            <td><input type="text" name="avatar" id="avatar" value="{{$user->avatar}}"/></td>
-        </tr>
-        <tr>
-            <th>Sex</th>
-            <td><input type="text" name="sex" id="sex" value="{{$user->sex}}" /></td>
-        </tr>
-        <tr>
-            <th>Birthday</th>
-            <td><input type="text" name="birthday" id="birthday" value="{{$user->birthday}}"/></td>
-        </tr>
-        <tr>
-            <th>Age</th>
-            <td><input type="text" name="age" id="age" value="{{$user->age}}"/></td>
-        </tr>
-        <tr>
-            <th>Address</th>
-            <td><input type="text" name="address" id="address" value="{{$user->address}}"/></td>
-        </tr>
-        <tr>
-            <th>Telephone</th>
-            <td><input type="text" name="telephone" id="telephone" value="{{$user->telephone}}"></td>
-        </tr>
-        <tr>
-            <th>Password</th>
-            <td><input type="text" name="password" id="password" value="{{$user->password}}"/></td>
-        </tr>
-        <tr>
-            <td>
-                <button type="update">Update</button>
-            </td>
-        </tr>
-    </table>
-</form> 
-</html>
+@extends('layouts.app')
+
+@section('content')
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header">{{ __('Edit Form') }}</div>
+
+                <div class="card-body">
+                    <form action="{{route('profile.update',['user' => $user->id]) }}" method="POST" enctype="multipart/form-data">
+                        @csrf
+                        @method('PATCH')
+                        <div class="form-group row">
+                            <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('Name') }}</label>
+
+                            <div class="col-md-6">
+                                <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{$user->name}}">
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label for="avatar" class="col-md-4 col-form-label text-md-right">{{ __('Avatar') }}</label>
+
+                            <div class="col-md-6">
+                                <input id="avatar" type="file" class="form-control @error('avatar') is-invalid @enderror" name="avatar" value="{{$user->avatar}}">
+                                <img class = "rounded-circle" src = "{{ route('avatar.show', ['id' => $user->id]) }}" width="100" height="100"><br>
+                            </div>
+                        </div>
+                         
+                        <div class="form-group row">
+                            <label for="sex" class="col-md-4 col-form-label text-md-right">{{ __('Sex') }}</label>
+                            
+                            <div class="col-md-6">
+                                <input id="sex" type="text" class="form-control @error('sex') is-invalid @enderror" name="sex" value="{{$user->sex}}">
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label for="birthday" class="col-md-4 col-form-label text-md-right">{{ __('Birthday') }}</label>
+
+                            <div class="col-md-6">
+                                <input id="birthday" type="text" class="form-control @error('birthday') is-invalid @enderror" name="birthday" value="{{$user->birthday}}">
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label for="age" class="col-md-4 col-form-label text-md-right">{{ __('Age') }}</label>
+
+                            <div class="col-md-6">
+                                <input id="age" type="text" class="form-control @error('age') is-invalid @enderror" name="age" value="{{$user->age}}">
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label for="address" class="col-md-4 col-form-label text-md-right">{{ __('Address') }}</label>
+
+                            <div class="col-md-6">
+                                <input id="address" type="text" class="form-control @error('address') is-invalid @enderror" name="address" value="{{$user->address}}">
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label for="telephone" class="col-md-4 col-form-label text-md-right">{{ __('Telephone') }}</label>
+
+                            <div class="col-md-6">
+                                <input id="telephone" type="text" class="form-control @error('telephone') is-invalid @enderror" name="telephone" value="{{$user->telephone}}">
+                            </div>
+                        </div>
+
+                        <div class="form-group row mb-0">
+                            <div class="col-md-6 offset-md-4">
+                                <button type="submit" class="btn btn-primary">
+                                    {{ __('Update') }}
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@endsection

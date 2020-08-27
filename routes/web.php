@@ -21,38 +21,23 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
-Route::get('/userlist', 'UserController@index')->name('userlist');
+Route::group(['middleware' => 'auth'], function () {
 
-Route::get('/articles/create' , 'ArticleController@create')->name('articles.create');
+    Route::get('/articles/create' , 'ArticleController@create')->name('articles.create');
+    Route::get('/index', 'ArticleController@index')->name('index');
+    Route::get('/store', 'ArticleController@store')->name('article.store');
+    Route::get('/articles/{article}', 'ArticleController@show')->name('articles.show');
 
-Route::get('/index', [
-    'uses' => 'ArticleController@index',
-    'as' => 'index',
-    'middleware' => 'auth'
-]);
+    Route::get('/comment', 'CommentController@index')->name('comment.index');
+    Route::post('articles/{article}/comments', 'CommentController@store')->name('comments.store');
 
-Route::post('/store', [
-    'uses' => 'ArticleController@store',
-    'as' => 'article.store',
-    'middleware' => 'auth'
-]);
+    Route::get('/userlist', 'UserController@index')->name('userlist.index');
+    
+    Route::post('/profile/{user}/edit', 'UserController@edit')->name('users.edit');
+    Route::patch('/profile/{user}','UserController@update')->name('profile.update');
+    Route::post('/profile/{user}', 'UserController@show')->name('users.show');
+    Route::get('/profile/{user}', 'UserController@show')->name('profile.show');
+    Route::get('profile/{id}/showAvatar', 'UserController@showAvatar')->name('avatar.show');
+    Route::delete('/profile/{user}', 'UserController@destroy')->name('profile.destroy');
+});
 
-Route::get('articles/{article}', [
-    'uses' => 'ArticleController@show',
-    'as' => 'articles.show',
-    'middleware' => 'auth'
-]);
-
-Route::get('/comment', [
-    'uses' => 'CommentController@index',
-    'as' => 'comment',
-    'middleware' => 'auth'
-]);
-
-Route::post('articles/{article}/comments', 'CommentController@store')->name('comments.store');
-
-Route::get('/profile/edit/{user}', 'UserController@edit')->name('users.edit');
-Route::patch('/profile/{user}','UserController@update')->name('profile.update');
-Route::get('/profile/{user}', 'ProfileController@show')->name('users.show');
-Route::get('profile/{id}/showAvatar', 'ProfileController@showAvatar')->name('avatar.show');
-Route::delete('/profile/{user}', 'ProfileController@destroy')->name('profile.destroy');

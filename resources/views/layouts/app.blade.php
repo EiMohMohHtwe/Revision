@@ -27,9 +27,18 @@
                     {{ config('app.name', 'Laravel') }}
                     
                 </a>
-                @if (auth()->user()->admin)
-                    <a href="{{ url('userlist') }}">User List</a>
-                @endif
+                
+                @auth
+                    @if(auth()->user())
+                        @if (auth()->user()->admin)
+                            <a href="{{ url('userlist') }}">User List</a>&nbsp;&nbsp;
+                        @endif
+                        <a href="{{ url('profile', ['id' => 2]) }}"> ViewProfile</a>&nbsp;&nbsp;
+                        <a href="{{ url('/articles/create') }}"> CreateArticle</a>&nbsp;&nbsp;
+                        <a href="{{ url('/index') }}"> ViewArticle</a>    
+                    @endif
+                @endauth
+
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>
                 </button>
@@ -43,6 +52,7 @@
                     <!-- Right Side Of Navbar -->
                     <ul class="navbar-nav ml-auto">
                         <!-- Authentication Links -->
+                        
                         @guest
                             <li class="nav-item">
                                 <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
